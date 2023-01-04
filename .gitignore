@@ -1,0 +1,121 @@
+
+# Created by https://www.toptal.com/developers/gitignore/api/xcode,swift,objective-c,macos,swiftpackagemanager,swiftpm,cocoapods,git,fastlane,homebrew
+# Edit at https://www.toptal.com/developers/gitignore?templates=xcode,swift,objective-c,macos,swiftpackagemanager,swiftpm,cocoapods,git,fastlane,homebrew
+
+### fastlane ###
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/screenshots/screenshots.html
+fastlane/test_output
+fastlane/FastlaneRunner
+
+### Git ###
+*.orig
+*.BACKUP.*
+*.BASE.*
+*.LOCAL.*
+*.REMOTE.*
+*_BACKUP_*.txt
+*_BASE_*.txt
+*_LOCAL_*.txt
+*_REMOTE_*.txt
+
+### Homebrew ###
+Brewfile.lock.json
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+### Objective-C ###Swift.gitignore
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+build/
+DerivedData/
+*.moved-aside
+
+## App packaging
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+Carthage/Build/
+
+
+iOSInjectionProject/
+
+### Objective-C Patch ###
+
+### Swift ###
+# Xcode
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+
+## Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+.build/
+
+### Firebase ###
+.idea
+**/node_modules/*
+**/.firebaserc
+Google
+GoogleService-Info.plist
+
+### Firebase Patch ###
+.runtimeconfig.json
+.firebase/
+GoogleService-Info.plist
+# End of https://www.toptal.com/developers/gitignore/api/firebase
+
+# Accio dependency management
+Dependencies/
+.accio/
+
+### SwiftPackageManager ###
+Packages
+xcuserdata
+
+
+### SwiftPM ###
+
+
+### Xcode ###
+# Xcode
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+/*.gcno
+
+### Xcode Patch ###
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+!*.xcworkspace/contents.xcworkspacedata
+**/xcshareddata/WorkspaceSettings.xcsettings
+
+### Tuist ###
+XCConfig/
+Tuist/Dependencies
+Derived/
+*.xcworkspace
+*.xcodeproj
