@@ -22,30 +22,30 @@ Features - Services - Core - Shared
 
 ## Makefile
 - make init // 프로젝트 세팅 (이름, organization)
-  swift Scripts/InitEnvironment.swift
+  - swift Scripts/InitEnvironment.swift
 
 - make signing // 프로젝트 Signing
-  swift Scripts/CodeSigning.swift
+  - swift Scripts/CodeSigning.swift
 
 - make generate // 디펜던시 fetch 및 프로젝트 generate
-  tuist fetch
-	tuist generate
+  - tuist fetch
+	- tuist generate
 
 - make module // 모듈 생성
-  swift Scripts/GenerateModule.swift
+  - swift Scripts/GenerateModule.swift
 
 - make ci_generate // 디펜던시 fetch 및 CI용 프로젝트 generate (SwiftLint X)
-  tuist fetch
-	TUIST_CI=1 tuist generate
+  - tuist fetch
+	- TUIST_CI=1 tuist generate
 
 - make clean // xcodeproj, xcworkspace 파일 삭제
-  rm -rf **/*.xcodeproj
-	rm -rf *.xcworkspace
+  - rm -rf **/*.xcodeproj
+	- rm -rf *.xcworkspace
 
 - make reset // tuist clean 후 xcodeproj, xcworkspace 파일 삭제
-  tuist clean
-	rm -rf **/*.xcodeproj
-	rm -rf *.xcworkspace
+  - tuist clean
+	- rm -rf **/*.xcodeproj
+	- rm -rf *.xcworkspace
 
 ## Scaffold
 tuist scaffold (Demo/Interface/Sources/Testing/Tests/UITests) 
