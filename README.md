@@ -3,6 +3,21 @@
 Features - Services - Core - Shared
 4개의 레이어를 가집니다.
 
+- Feature
+  - Presentation 부분
+  - ex) AuthFeature, ProfileFeature
+- Domain
+  - Business Logic 부분
+  - ex) AuthDomain, ProfileDomain
+- Core
+  - Feature, Domain에 공통적으로 쓰일 모듈
+  - ex) NetworkingModule, DatabaseModule
+- Shared
+  - 모든 계층에서 사용 가능한 모듈
+  - 더 넓은 의미의 공통적
+  - ex) UtilityModule, LoggingModule
+
+을 생각하여 레이어를 분리하였습니다.
 
 ## Micro Architecture
 확장 가능하고 커지는 프로젝트를 기능별로 수평 확장이 가능하도록 Micro Service에서 영감을 얻은 아키텍쳐입니다.
