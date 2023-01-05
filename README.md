@@ -26,7 +26,6 @@ Features - Services - Core - Shared
 
 ##### https://docs.tuist.io/building-at-scale/microfeatures/#product
 
-
 ## 프로젝트 세팅
 프로젝트 루트에서 `make init` 를 실행하면 프로젝트 이름과 organization 이름을 입력하여 세팅을 할 수 있습니다.
 
@@ -34,6 +33,9 @@ Features - Services - Core - Shared
 ## 프로젝트 Signing
 프로젝트 루트에서 `make signing`를 실행하면 프로젝트 Signing을 할 수 있습니다.
 
+## 모듈 생성
+프로젝트 루트에서 `make module`를 실행하면 모듈 레이어, 이름, Micro Feature 종류를 선택하여 새 모듈을 생성합니다.
+(DependencyPlugin에 자동으로 등록되니 해당 모듈이 필요한 곳에 .Projects.\(레이어).\(모듈명)\(MicroFeature종류) 로 디펜던시를 추가해주면 됩니다)
 
 ## Makefile
 - make init // 프로젝트 세팅 (이름, organization)
