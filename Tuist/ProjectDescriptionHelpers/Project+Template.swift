@@ -39,16 +39,24 @@ public extension Project {
         ["OTHER_LDFLAGS": .string("$(inherited) -all_load")] :
         ["OTHER_LDFLAGS": .string("$(inherited)")]
 
+        let configurations: [Configuration] = isCI ?
+        [
+          .debug(name: .dev),
+          .debug(name: .stage),
+          .release(name: .prod)
+        ] :
+        [
+          .debug(name: .dev, xcconfig: .relativeToXCConfig(type: .dev, name: name)),
+          .debug(name: .stage, xcconfig: .relativeToXCConfig(type: .stage, name: name)),
+          .release(name: .prod, xcconfig: .relativeToXCConfig(type: .prod, name: name))
+        ]
+
         let settings: Settings = .settings(
             base: env.baseSetting
                 .merging(.codeSign)
                 .merging(settings)
                 .merging(ldFlagsSettings),
-            configurations: [
-                .debug(name: .dev, xcconfig: .relativeToXCConfig(type: .dev, name: name)),
-                .debug(name: .stage, xcconfig: .relativeToXCConfig(type: .stage, name: name)),
-                .release(name: .prod, xcconfig: .relativeToXCConfig(type: .prod, name: name))
-            ],
+            configurations: configurations,
             defaultSettings: .recommended
         )
         var allTargets: [Target] = []

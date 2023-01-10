@@ -6,13 +6,21 @@ import Foundation
 
 let isCI = (ProcessInfo.processInfo.environment["TUIST_CI"] ?? "0") == "1" ? true : false
 
+let configurations: [Configuration] = isCI ?
+[
+  .debug(name: .dev),
+  .debug(name: .stage),
+  .release(name: .prod)
+] :
+[
+  .debug(name: .dev, xcconfig: .relativeToXCConfig(type: .dev, name: "App")),
+  .debug(name: .stage, xcconfig: .relativeToXCConfig(type: .stage, name: "App")),
+  .release(name: .prod, xcconfig: .relativeToXCConfig(type: .prod, name: "App"))
+]
+
 let settings: Settings =
     .settings(base: env.baseSetting,
-              configurations: [
-                .debug(name: .dev, xcconfig: .relativeToXCConfig(type: .dev, name: "App")),
-                .debug(name: .stage, xcconfig: .relativeToXCConfig(type: .stage, name: "App")),
-                .release(name: .prod, xcconfig: .relativeToXCConfig(type: .prod, name: "App"))
-              ],
+              configurations: configurations,
               defaultSettings: .recommended)
 
 let scripts: [TargetScript] = isCI ? [] : [.swiftLint]
