@@ -51,6 +51,9 @@ Features - Services - Core - Shared
 - make module // 모듈 생성
   - swift Scripts/GenerateModule.swift
 
+- make dependency // 디펜던시 추기
+  - swift Scripts/NewDependency.swift
+
 - make ci_generate // 디펜던시 fetch 및 CI용 프로젝트 generate (SwiftLint X)
   - tuist fetch
   - TUIST_CI=1 tuist generate
