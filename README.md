@@ -19,7 +19,7 @@ Features - Services - Core - Shared
 
 을 생각하여 레이어를 분리하였습니다.
 
-## Micro Architecture
+## Micro Feature
 확장 가능하고 커지는 프로젝트를 기능별로 수평 확장이 가능하도록 Micro Service에서 영감을 얻은 아키텍쳐입니다.
 
 <img src="https://user-images.githubusercontent.com/74440939/210211725-5ac7c9fe-bf25-4707-9775-4f46f1c0c522.png" width="200">
