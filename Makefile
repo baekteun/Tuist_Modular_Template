@@ -18,6 +18,9 @@ reset:
 module:
 	swift Scripts/GenerateModule.swift
 
+dependency:
+	swift Scripts/NewDependency.swift
+
 init:
 	swift Scripts/InitEnvironment.swift
 
