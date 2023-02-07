@@ -5,10 +5,10 @@ public extension ProjectDescription.Path {
         return .relativeToRoot("Projects/\(path)")
     }
     static func relativeToFeature(_ path: String) -> Self {
-        return .relativeToRoot("Projects/Features/\(path)")
+        return .relativeToRoot("Projects/Feature/\(path)")
     }
     static func relativeToDomain(_ path: String) -> Self {
-        return .relativeToRoot("Projects/Services/\(path)")
+        return .relativeToRoot("Projects/Domain/\(path)")
     }
     static func relativeToCore(_ path: String) -> Self {
         return .relativeToRoot("Projects/Core/\(path)")
