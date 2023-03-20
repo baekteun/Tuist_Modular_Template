@@ -70,7 +70,7 @@ func registerMicroTarget(target: MicroTargetType) {
     let targetString = """
     static let \(moduleName)\(target.rawValue) = TargetDependency.project(
         target: ModulePaths.\(layer.rawValue).\(moduleName).targetName(type: .\(target)),
-        path: .relativeTo\(layer.rawValue)(ModulePaths.\(layer.rawValue).\(moduleName).targetName(type: .\(target)))
+        path: .relativeTo\(layer.rawValue)(ModulePaths.\(layer.rawValue).\(moduleName).rawValue)
     )\n
 """
     updateFileContent(
