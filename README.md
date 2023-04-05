@@ -38,31 +38,31 @@ Features - Services - Core - Shared
 (DependencyPlugin에 자동으로 등록되니 해당 모듈이 필요한 곳에 .Projects.\(레이어).\(모듈명)\(MicroFeature종류) 로 디펜던시를 추가해주면 됩니다)
 
 ## Makefile
-- make init // 프로젝트 세팅 (이름, organization)
+- make init `// 프로젝트 세팅 (이름, organization)`
   - swift Scripts/InitEnvironment.swift
 
-- make signing // 프로젝트 Signing
+- make signing `// 프로젝트 Signing`
   - swift Scripts/CodeSigning.swift
 
-- make generate // 디펜던시 fetch 및 프로젝트 generate
+- make generate `// 디펜던시 fetch 및 프로젝트 generate`
   - tuist fetch
   - tuist generate
 
-- make module // 모듈 생성
+- make module `// 모듈 생성`
   - swift Scripts/GenerateModule.swift
 
-- make dependency // 디펜던시 추기
+- make dependency `// 디펜던시 추기`
   - swift Scripts/NewDependency.swift
 
-- make ci_generate // 디펜던시 fetch 및 CI용 프로젝트 generate (SwiftLint X)
+- make ci_generate `// 디펜던시 fetch 및 CI용 프로젝트 generate (SwiftLint X)`
   - tuist fetch
   - TUIST_CI=1 tuist generate
 
-- make clean // xcodeproj, xcworkspace 파일 삭제
+- make clean `// xcodeproj, xcworkspace 파일 삭제`
   - rm -rf **/*.xcodeproj
   - rm -rf *.xcworkspace
 
-- make reset // tuist clean 후 xcodeproj, xcworkspace 파일 삭제
+- make reset `// tuist clean 후 xcodeproj, xcworkspace 파일 삭제`
   - tuist clean
   - rm -rf **/*.xcodeproj
   - rm -rf *.xcworkspace
