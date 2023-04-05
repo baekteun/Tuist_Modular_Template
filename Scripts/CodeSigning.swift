@@ -2,7 +2,7 @@
 import Foundation
 
 func writeContentInFile(path: String, content: String) {
-    let fileURL = URL(filePath: path)
+    let fileURL = URL(fileURLWithPath: path)
     let data = Data(content.utf8)
     try? data.write(to: fileURL)
 }

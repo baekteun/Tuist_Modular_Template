@@ -142,7 +142,7 @@ func makeScaffold(target: MicroTargetType) {
 }
 
 func writeContentInFile(path: String, content: String) {
-    let fileURL = URL(filePath: path)
+    let fileURL = URL(fileURLWithPath: path)
     let data = Data(content.utf8)
     try? data.write(to: fileURL)
 }
@@ -152,7 +152,7 @@ func updateFileContent(
     finding findingString: String,
     inserting insertString: String
 ) {
-    let fileURL = URL(filePath: filePath)
+    let fileURL = URL(fileURLWithPath: filePath)
     guard let readHandle = try? FileHandle(forReadingFrom: fileURL) else {
         fatalError("❌ Failed to find \(filePath)")
     }
