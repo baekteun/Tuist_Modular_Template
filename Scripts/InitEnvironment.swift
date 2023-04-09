@@ -4,7 +4,7 @@ import Foundation
 let currentPath = "./"
 
 func writeCodeInFile(filePath: String, codes: String) {
-    let fileURL = URL(fileURLWithPath: path)
+    let fileURL = URL(fileURLWithPath: filePath)
     guard let writeHandle = try? FileHandle(forWritingTo: fileURL) else {
         fatalError("\(filePath)을 찾을 수 없습니다")
     }
