@@ -4,8 +4,6 @@ import EnvironmentPlugin
 import Foundation
 import ProjectDescription
 
-let isCI = (ProcessInfo.processInfo.environment["TUIST_CI"] ?? "0") == "1" ? true : false
-
 public enum MicroFeatureTarget {
     case interface
     case testing
@@ -32,24 +30,28 @@ public extension Project {
         resources: ResourceFileElements? = nil,
         settings: SettingsDictionary = [:],
         additionalPlistRows: [String: ProjectDescription.InfoPlist.Value] = [:],
-        additionalFiles: [FileElement] = []
+        additionalFiles: [FileElement] = [],
+        configurations: [Configuration] = []
     ) -> Project {
-        let scripts: [TargetScript] = isCI ? [] : [.swiftLint]
+        let scripts: [TargetScript] = env.isCI ? [] : [.swiftLint]
         let ldFlagsSettings: SettingsDictionary = product == .framework ?
         ["OTHER_LDFLAGS": .string("$(inherited) -all_load")] :
         ["OTHER_LDFLAGS": .string("$(inherited)")]
 
-        let configurations: [Configuration] = isCI ?
-        [
-          .debug(name: .dev),
-          .debug(name: .stage),
-          .release(name: .prod)
-        ] :
-        [
-          .debug(name: .dev, xcconfig: .relativeToXCConfig(type: .dev, name: name)),
-          .debug(name: .stage, xcconfig: .relativeToXCConfig(type: .stage, name: name)),
-          .release(name: .prod, xcconfig: .relativeToXCConfig(type: .prod, name: name))
-        ]
+        var configurations = configurations
+        if configurations.isEmpty {
+            configurations = env.isCI ?
+            [
+                .debug(name: .dev),
+                .debug(name: .stage),
+                .release(name: .prod)
+            ] :
+            [
+                .debug(name: .dev, xcconfig: .shared),
+                .debug(name: .stage, xcconfig: .shared),
+                .release(name: .prod, xcconfig: .shared)
+            ]
+        }
 
         let settings: Settings = .settings(
             base: env.baseSetting
