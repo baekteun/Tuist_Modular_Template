@@ -76,7 +76,7 @@ Features - Services - Core - UserInterface - Shared
 
 ## Scaffold
 tuist Scaffold(Demo/Interface/Sources/Testing/Tests/UITests) 
-  -- (Features/Services/Core/Shared/UserInterface 레이어 이름)
-  -- (모듈 이름)
+  --layer (Features/Services/Core/Shared/UserInterface 레이어 이름)
+  --name (모듈 이름)
 
 으로 Project 모듈의 Target 모듈을 직접 생성 가능합니다.
