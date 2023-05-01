@@ -1,0 +1,5 @@
+OTHER_SWIFT_FLAGS[config=DEV][sdk=*] = $(inherited) -DDEV
+OTHER_SWIFT_FLAGS[config=STAGE][sdk=*] = $(inherited) -DSTAGE
+OTHER_SWIFT_FLAGS[config=PROD][sdk=*] = $(inherited) -DPROD
+
+ENABLE_BITCODE = NO
