@@ -15,6 +15,7 @@ func writeCodeInFile(filePath: String, codes: String) {
 
 func envString(projectName: String, organizationName: String) -> String {
     return """
+import Foundation
 import ProjectDescription
 
 public struct ProjectEnvironment {
@@ -23,6 +24,7 @@ public struct ProjectEnvironment {
     public let deploymentTarget: DeploymentTarget
     public let platform: Platform
     public let baseSetting: SettingsDictionary
+    public let isCI: Bool
 }
 
 public let env = ProjectEnvironment(
@@ -30,7 +32,8 @@ public let env = ProjectEnvironment(
     organizationName: "\(organizationName)",
     deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone, .ipad]),
     platform: .iOS,
-    baseSetting: [:]
+    baseSetting: [:],
+    isCI: (ProcessInfo.processInfo.environment["TUIST_CI"] ?? "0") == "1" ? true : false
 )
 """
 }
