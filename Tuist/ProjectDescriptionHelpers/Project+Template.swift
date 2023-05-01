@@ -40,13 +40,7 @@ public extension Project {
 
         var configurations = configurations
         if configurations.isEmpty {
-            configurations = env.isCI ?
-            [
-                .debug(name: .dev),
-                .debug(name: .stage),
-                .release(name: .prod)
-            ] :
-            [
+            configurations = [
                 .debug(name: .dev, xcconfig: .shared),
                 .debug(name: .stage, xcconfig: .shared),
                 .release(name: .prod, xcconfig: .shared)
