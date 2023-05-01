@@ -6,6 +6,7 @@ enum LayerType: String {
     case domain = "Domain"
     case core = "Core"
     case shared = "Shared"
+    case ui = "UserInterface"
 }
 
 enum MicroTargetType: String {
@@ -175,7 +176,7 @@ func updateFileContent(
 
 // MARK: - Starting point
 
-print("Enter layer name\n(Feature | Domain | Core | Shared)", terminator: " : ")
+print("Enter layer name\n(Feature | Domain | Core | Shared | UserInterface)", terminator: " : ")
 let layerInput = readLine()
 guard 
     let layerInput, 

@@ -3,7 +3,7 @@ import ProjectDescriptionHelpers
 import DependencyPlugin
 
 let project = Project.makeModule(
-    name: ModulePaths.Core.DesignSystem.rawValue,
+    name: ModulePaths.UserInterface.DesignSystem.rawValue,
     product: .framework,
     targets: [.demo]
 )

@@ -6,6 +6,7 @@ public enum ModulePaths {
     case domain(Domain)
     case core(Core)
     case shared(Shared)
+    case userInterface(UserInterface)
 }
 
 public extension ModulePaths {
@@ -30,7 +31,7 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Core: String {
-        case DesignSystem
+        case CoreKit
 
         func targetName(type: MicroTargetType) -> String {
             "\(self.rawValue)\(type.rawValue)"
@@ -40,8 +41,17 @@ public extension ModulePaths {
 
 public extension ModulePaths {
     enum Shared: String {
-        case UtilityModule
         case GlobalThirdPartyLibrary
+
+        func targetName(type: MicroTargetType) -> String {
+            "\(self.rawValue)\(type.rawValue)"
+        }
+    }
+}
+
+public extension ModulePaths {
+    enum UserInterface: String {
+        case DesignSystem
 
         func targetName(type: MicroTargetType) -> String {
             "\(self.rawValue)\(type.rawValue)"

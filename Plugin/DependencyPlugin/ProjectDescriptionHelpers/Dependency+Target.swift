@@ -6,6 +6,7 @@ public extension TargetDependency {
     struct Domain {}
     struct Core {}
     struct Shared {}
+    struct UserInterface {}
 }
 
 public extension TargetDependency.Feature {
@@ -23,19 +24,22 @@ public extension TargetDependency.Domain {
 }
 
 public extension TargetDependency.Core {
-    static let DesignSystem = TargetDependency.project(
-        target: ModulePaths.Core.DesignSystem.targetName(type: .sources),
-        path: .relativeToCore(ModulePaths.Core.DesignSystem.rawValue)
+    static let CoreKit = TargetDependency.project(
+        target: ModulePaths.Core.CoreKit.targetName(type: .sources),
+        path: .relativeToCore(ModulePaths.Core.CoreKit.rawValue)
     )
 }
 
 public extension TargetDependency.Shared {
-    static let UtilityModule = TargetDependency.project(
-        target: ModulePaths.Shared.UtilityModule.targetName(type: .sources),
-        path: .relativeToShared(ModulePaths.Shared.UtilityModule.rawValue)
-    )
     static let GlobalThirdPartyLibrary = TargetDependency.project(
         target: ModulePaths.Shared.GlobalThirdPartyLibrary.targetName(type: .sources),
         path: .relativeToShared(ModulePaths.Shared.GlobalThirdPartyLibrary.rawValue)
+    )
+}
+
+public extension TargetDependency.UserInterface {
+    static let DesignSystem = TargetDependency.project(
+        target: ModulePaths.UserInterface.DesignSystem.targetName(type: .sources),
+        path: .relativeToUserInterface(ModulePaths.UserInterface.DesignSystem.rawValue)
     )
 }
