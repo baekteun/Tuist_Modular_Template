@@ -4,18 +4,16 @@ import DependencyPlugin
 import EnvironmentPlugin
 import Foundation
 
-let isCI = (ProcessInfo.processInfo.environment["TUIST_CI"] ?? "0") == "1" ? true : false
-
-let configurations: [Configuration] = isCI ?
+let configurations: [Configuration] = env.isCI ?
 [
   .debug(name: .dev),
   .debug(name: .stage),
   .release(name: .prod)
 ] :
 [
-  .debug(name: .dev, xcconfig: .relativeToXCConfig(type: .dev, name: "App")),
-  .debug(name: .stage, xcconfig: .relativeToXCConfig(type: .stage, name: "App")),
-  .release(name: .prod, xcconfig: .relativeToXCConfig(type: .prod, name: "App"))
+  .debug(name: .dev, xcconfig: .shared),
+  .debug(name: .stage, xcconfig: .shared),
+  .release(name: .prod, xcconfig: .shared)
 ]
 
 let settings: Settings =
@@ -23,7 +21,7 @@ let settings: Settings =
               configurations: configurations,
               defaultSettings: .recommended)
 
-let scripts: [TargetScript] = isCI ? [] : [.swiftLint]
+let scripts: [TargetScript] = env.isCI ? [] : [.swiftLint]
 
 let targets: [Target] = [
     .init(
