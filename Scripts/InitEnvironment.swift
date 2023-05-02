@@ -43,6 +43,12 @@ func makeEnv(projectName: String, organizationName: String) {
     writeCodeInFile(filePath: currentPath + "Plugin/EnvironmentPlugin/ProjectDescriptionHelpers/ProjectEnvironment.swift", codes: env)
 }
 
+func handleSIGINT(_ signal: Int32) -> Void {
+    exit(0)
+}
+
+signal(SIGINT, handleSIGINT)
+
 print("Enter your project name", terminator: " : ")
 let projectName = readLine() ?? ""
 

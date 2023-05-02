@@ -7,6 +7,12 @@ func writeContentInFile(path: String, content: String) {
     try? data.write(to: fileURL)
 }
 
+func handleSIGINT(_ signal: Int32) -> Void {
+    exit(0)
+}
+
+signal(SIGINT, handleSIGINT)
+
 print("Enter your Apple Developer ID Code Signing Identity: ", terminator: "")
 guard let codeSigningIdentity = readLine() else {
     fatalError()
