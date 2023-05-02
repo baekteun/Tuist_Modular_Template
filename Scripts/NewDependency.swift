@@ -47,6 +47,12 @@
      registerDependencySPM(name: name, package: package)
  }
 
+ func handleSIGINT(_ signal: Int32) -> Void {
+     exit(0)
+ }
+
+ signal(SIGINT, handleSIGINT)
+
  print("Enter dependency name", terminator: " : ")
  guard let dependencyName = readLine() else {
      fatalError("Dependency name is nil")

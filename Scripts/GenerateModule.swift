@@ -173,8 +173,14 @@ func updateFileContent(
     try? writeHandle.close()
 }
 
+func handleSIGINT(_ signal: Int32) -> Void {
+    exit(0)
+}
+
 
 // MARK: - Starting point
+
+signal(SIGINT, handleSIGINT)
 
 print("Enter layer name\n(Feature | Domain | Core | Shared | UserInterface)", terminator: " : ")
 let layerInput = readLine()
