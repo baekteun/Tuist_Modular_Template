@@ -8,7 +8,7 @@
      finding findingString: String,
      inserting insertString: String
  ) {
-     let fileURL = URL(fileURLWithPath: path)
+     let fileURL = URL(fileURLWithPath: filePath)
      guard let readHandle = try? FileHandle(forReadingFrom: fileURL) else {
          fatalError("❌ Failed to find \(filePath)")
      }
