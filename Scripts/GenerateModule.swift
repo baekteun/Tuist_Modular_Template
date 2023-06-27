@@ -26,15 +26,12 @@ func registerModuleDependency() {
     registerModulePaths()
     makeProjectDirectory()
     registerXCConfig()
-    registerMicroTarget(target: .sources)
     var targetString = "["
     if hasInterface {
-        registerMicroTarget(target: .interface)
         makeScaffold(target: .interface)
         targetString += ".\(MicroTargetType.interface), "
     }
     if hasTesting {
-        registerMicroTarget(target: .testing)
         makeScaffold(target: .testing)
         targetString += ".\(MicroTargetType.testing), "
     }
@@ -61,25 +58,10 @@ func registerModuleDependency() {
 func registerModulePaths() {
     updateFileContent(
         filePath: currentPath + "Plugin/DependencyPlugin/ProjectDescriptionHelpers/ModulePaths.swift",
-        finding: "enum \(layer.rawValue): String {\n",
+        finding: "enum \(layer.rawValue): String, MicroTargetPathConvertable {\n",
         inserting: "        case \(moduleName)\n"
     )
     print("Register \(moduleName) to ModulePaths.swift")
-}
-
-func registerMicroTarget(target: MicroTargetType) {
-    let targetString = """
-    static let \(moduleName)\(target.rawValue) = TargetDependency.project(
-        target: ModulePaths.\(layer.rawValue).\(moduleName).targetName(type: .\(target)),
-        path: .relativeTo\(layer.rawValue)(ModulePaths.\(layer.rawValue).\(moduleName).rawValue)
-    )\n
-"""
-    updateFileContent(
-        filePath: currentPath + "Plugin/DependencyPlugin/ProjectDescriptionHelpers/Dependency+Target.swift",
-        finding: "public extension TargetDependency.\(layer.rawValue) {\n",
-        inserting: targetString
-    )
-    print("Register \(moduleName) \(target.rawValue) target to Dependency+Target.swift")
 }
 
 func registerXCConfig() {
@@ -220,17 +202,18 @@ print("This module has a 'Demo' Target? (y\\n, default = n)", terminator: " : ")
 let hasDemo = readLine()?.lowercased() == "y"
 
 print("")
+print("""
+------------------------------------------------------------------------------------------------------------------------
+Layer: \(layer.rawValue)
+Module name: \(moduleName)
+interface: \(hasInterface), testing: \(hasTesting), unitTests: \(hasUnitTests), uiTests: \(hasUITests), demo: \(hasDemo)
+------------------------------------------------------------------------------------------------------------------------
+""")
+print("🔄 Module is creating ...")
 
 registerModuleDependency()
 
-print("")
-print("------------------------------------------------------------------------------------------------------------------------")
-print("Layer: \(layer.rawValue)")
-print("Module name: \(moduleName)")
-print("interface: \(hasInterface), testing: \(hasTesting), unitTests: \(hasUnitTests), uiTests: \(hasUITests), demo: \(hasDemo)")
-print("------------------------------------------------------------------------------------------------------------------------")
 print("✅ Module is created successfully!")
-
 
 // MARK: - Bash
 protocol CommandExecuting {
