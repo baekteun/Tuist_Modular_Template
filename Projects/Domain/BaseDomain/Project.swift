@@ -7,7 +7,6 @@ let project = Project.makeModule(
     product: .framework,
     targets: [.unitTest],
     internalDependencies: [
-        .Shared.GlobalThirdPartyLibrary,
-        .Shared.UtilityModule
+        .shared(target: .GlobalThirdPartyLibrary)
     ]
 )

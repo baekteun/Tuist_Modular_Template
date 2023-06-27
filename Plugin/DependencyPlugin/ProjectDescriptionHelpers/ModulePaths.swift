@@ -9,53 +9,46 @@ public enum ModulePaths {
     case userInterface(UserInterface)
 }
 
+extension ModulePaths: MicroTargetPathConvertable {
+    public func targetName(type: MicroTargetType) -> String {
+        switch self {
+        case let .feature(module as any MicroTargetPathConvertable),
+            let .domain(module as any MicroTargetPathConvertable),
+            let .core(module as any MicroTargetPathConvertable),
+            let .shared(module as any MicroTargetPathConvertable),
+            let .userInterface(module as any MicroTargetPathConvertable):
+            return module.targetName(type: type)
+        }
+    }
+}
+
 public extension ModulePaths {
-    enum Feature: String {
+    enum Feature: String, MicroTargetPathConvertable {
         case BaseFeature
-
-        func targetName(type: MicroTargetType) -> String {
-            "\(self.rawValue)\(type.rawValue)"
-        }
     }
 }
 
 public extension ModulePaths {
-    enum Domain: String {
+    enum Domain: String, MicroTargetPathConvertable {
         case BaseDomain
-
-        func targetName(type: MicroTargetType) -> String {
-            "\(self.rawValue)\(type.rawValue)"
-        }
     }
 }
 
 public extension ModulePaths {
-    enum Core: String {
+    enum Core: String, MicroTargetPathConvertable {
         case CoreKit
-
-        func targetName(type: MicroTargetType) -> String {
-            "\(self.rawValue)\(type.rawValue)"
-        }
     }
 }
 
 public extension ModulePaths {
-    enum Shared: String {
+    enum Shared: String, MicroTargetPathConvertable {
         case GlobalThirdPartyLibrary
-
-        func targetName(type: MicroTargetType) -> String {
-            "\(self.rawValue)\(type.rawValue)"
-        }
     }
 }
 
 public extension ModulePaths {
-    enum UserInterface: String {
+    enum UserInterface: String, MicroTargetPathConvertable {
         case DesignSystem
-
-        func targetName(type: MicroTargetType) -> String {
-            "\(self.rawValue)\(type.rawValue)"
-        }
     }
 }
 
@@ -63,4 +56,16 @@ public enum MicroTargetType: String {
     case interface = "Interface"
     case sources = ""
     case testing = "Testing"
+    case unitTest = "Tests"
+    case demo = "Demo"
+}
+
+public protocol MicroTargetPathConvertable {
+    func targetName(type: MicroTargetType) -> String
+}
+
+public extension MicroTargetPathConvertable where Self: RawRepresentable {
+    func targetName(type: MicroTargetType) -> String {
+        "\(self.rawValue)\(type.rawValue)"
+    }
 }
