@@ -1,5 +1,6 @@
 import ProjectDescriptionHelpers
 import ProjectDescription
+import ConfigurationPlugin
 import DependencyPlugin
 import EnvironmentPlugin
 import Foundation
