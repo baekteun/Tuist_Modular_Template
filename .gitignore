@@ -96,23 +96,6 @@ Dependencies/
 Packages
 xcuserdata
 
-
-### SwiftPM ###
-
-
-### Xcode ###
-# Xcode
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
-
-/*.gcno
-
-### Xcode Patch ###
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcworkspace/contents.xcworkspacedata
-**/xcshareddata/WorkspaceSettings.xcsettings
-
 ### Tuist ###
 XCConfig/*
 !XCConfig/Shared.xcconfig
@@ -120,3 +103,4 @@ Tuist/Dependencies
 Derived/
 *.xcworkspace
 *.xcodeproj
+master.key
