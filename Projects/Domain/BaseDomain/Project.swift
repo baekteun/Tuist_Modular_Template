@@ -1,12 +1,15 @@
+import DependencyPlugin
 import ProjectDescription
 import ProjectDescriptionHelpers
-import DependencyPlugin
 
-let project = Project.makeModule(
+let project = Project.module(
     name: ModulePaths.Domain.BaseDomain.rawValue,
-    product: .framework,
-    targets: [.unitTest],
-    internalDependencies: [
-        .shared(target: .GlobalThirdPartyLibrary)
+    targets: [
+        .implements(module: .domain(.BaseDomain), dependencies: [
+            .shared(target: .GlobalThirdPartyLibrary)
+        ]),
+        .tests(module: .domain(.BaseDomain), dependencies: [
+            .domain(target: .BaseDomain, type: .interface)
+        ])
     ]
 )

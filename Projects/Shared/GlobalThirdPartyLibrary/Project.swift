@@ -1,9 +1,10 @@
+import DependencyPlugin
 import ProjectDescription
 import ProjectDescriptionHelpers
-import DependencyPlugin
 
-let project = Project.makeModule(
+let project = Project.module(
     name: ModulePaths.Shared.GlobalThirdPartyLibrary.rawValue,
-    product: .framework,
-    targets: []
+    targets: [
+        .implements(module: .shared(.GlobalThirdPartyLibrary), product: .framework, dependencies: [])
+    ]
 )

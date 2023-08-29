@@ -1,9 +1,10 @@
+import DependencyPlugin
 import ProjectDescription
 import ProjectDescriptionHelpers
-import DependencyPlugin
 
-let project = Project.makeModule(
+let project = Project.module(
     name: ModulePaths.Core.CoreKit.rawValue,
-    product: .framework,
-    targets: []
+    targets: [
+        .implements(module: .core(.CoreKit))
+    ]
 )
