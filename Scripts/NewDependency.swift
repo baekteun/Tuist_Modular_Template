@@ -1,6 +1,12 @@
 #!/usr/bin/swift
  import Foundation
 
+func handleSIGINT(_ signal: Int32) {
+    exit(0)
+}
+
+signal(SIGINT, handleSIGINT)
+
  let currentPath = "./"
 
  func updateFileContent(
@@ -12,7 +18,7 @@
      guard let readHandle = try? FileHandle(forReadingFrom: fileURL) else {
          fatalError("❌ Failed to find \(filePath)")
      }
-     guard let readData = try? readHandle.readToEnd() else { 
+     guard let readData = try? readHandle.readToEnd() else {
          fatalError("❌ Failed to find \(filePath)")
      }
      try? readHandle.close()
@@ -47,12 +53,6 @@
      registerDependencySPM(name: name, package: package)
  }
 
- func handleSIGINT(_ signal: Int32) -> Void {
-     exit(0)
- }
-
- signal(SIGINT, handleSIGINT)
-
  print("Enter dependency name", terminator: " : ")
  guard let dependencyName = readLine() else {
      fatalError("Dependency name is nil")
@@ -74,4 +74,6 @@
  }
 
  registerDependency(name: dependencyName, package: packageName, url: dependencyURL, version: dependencyVersion)
-
+ 
+ print("")
+ print("✅ New Dependency is registered successfully!")
