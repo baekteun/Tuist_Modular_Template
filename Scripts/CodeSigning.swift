@@ -29,7 +29,7 @@ public extension SettingsDictionary {
 
 """
 
-writeContentInFile(path: "Tuist/ProjectDescriptionHelpers/CodeSign.swift", content: codeSignContent)
+writeContentInFile(path: "Tuist/ProjectDescriptionHelpers/SettingsDictionary/CodeSign.swift", content: codeSignContent)
 
 print("✅ Code Sign extension generated successfully!")
 
