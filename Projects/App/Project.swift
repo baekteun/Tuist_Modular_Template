@@ -5,22 +5,13 @@ import DependencyPlugin
 import EnvironmentPlugin
 import Foundation
 
-let configurations: [Configuration] = generateEnvironment == .ci ?
-[
-  .debug(name: .dev),
-  .debug(name: .stage),
-  .release(name: .prod)
-] :
-[
-  .debug(name: .dev, xcconfig: .shared),
-  .debug(name: .stage, xcconfig: .shared),
-  .release(name: .prod, xcconfig: .shared)
-]
+let configurations: [Configuration] = .default
 
-let settings: Settings =
-    .settings(base: env.baseSetting,
-              configurations: configurations,
-              defaultSettings: .recommended)
+let settings: Settings = .settings(
+    base: env.baseSetting,
+    configurations: configurations,
+    defaultSettings: .recommended
+)
 
 let scripts: [TargetScript] = generateEnvironment.scripts
 
@@ -35,9 +26,7 @@ let targets: [Target] = [
         sources: ["Sources/**"],
         resources: ["Resources/**"],
         scripts: scripts,
-        dependencies: [
-            
-        ],
+        dependencies: [],
         settings: .settings(base: env.baseSetting)
     )
 ]
