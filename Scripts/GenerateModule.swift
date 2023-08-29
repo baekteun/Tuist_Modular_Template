@@ -1,12 +1,18 @@
 #!/usr/bin/swift
 import Foundation
 
+func handleSIGINT(_ signal: Int32) {
+    exit(0)
+}
+
+signal(SIGINT, handleSIGINT)
+
 enum LayerType: String {
     case feature = "Feature"
     case domain = "Domain"
     case core = "Core"
     case shared = "Shared"
-    case ui = "UserInterface"
+    case userInterface = "UserInterface"
 }
 
 enum MicroTargetType: String {
@@ -26,33 +32,48 @@ func registerModuleDependency() {
     registerModulePaths()
     makeProjectDirectory()
     registerXCConfig()
-    var targetString = "["
+
+    let layerPrefix = layer.rawValue.lowercased()
+    let moduleEnum = ".\(layerPrefix)(.\(moduleName))"
+    var targetString = "[\n"
     if hasInterface {
         makeScaffold(target: .interface)
-        targetString += ".\(MicroTargetType.interface), "
+        targetString += "\(tab(2)).interface(module: \(moduleEnum)),\n"
+    }
+    targetString += "\(tab(2)).implements(module: \(moduleEnum)"
+    if hasInterface {
+        targetString += ", dependencies: [\n\(tab(3)).\(layerPrefix)(target: .\(moduleName), type: .interface)\n\(tab(2))])"
+    } else {
+        targetString += ")"
     }
     if hasTesting {
         makeScaffold(target: .testing)
-        targetString += ".\(MicroTargetType.testing), "
+        let interfaceDependency = ".\(layerPrefix)(target: .\(moduleName), type: .interface)"
+        targetString += ",\n\(tab(2)).testing(module: \(moduleEnum), dependencies: \n\(tab(3))\(interfaceDependency)\n\(tab(2)))"
     }
     if hasUnitTests {
         makeScaffold(target: .unitTest)
-        targetString += ".\(MicroTargetType.unitTest), "
+        targetString += ",\n\(tab(2)).tests(module: \(moduleEnum), dependencies: [\n\(tab(3)).\(layerPrefix)(target: .\(moduleName))\n\(tab(2))])"
     }
     if hasUITests {
         makeScaffold(target: .uiTest)
-        targetString += ".\(MicroTargetType.uiTest), "
+        #warning("ui test 타겟 설정 로직 추가")
     }
     if hasDemo {
         makeScaffold(target: .demo)
-        targetString += ".\(MicroTargetType.demo), "
+        targetString += ",\n\(tab(2)).demo(module: \(moduleEnum), dependencies: [\n\(tab(3)).\(layerPrefix)(target: .\(moduleName))\n\(tab(2))])"
     }
-    if targetString.hasSuffix(", ") {
-        targetString.removeLast(2)
-    }
-    targetString += "]"
+    targetString += "\n\(tab(1))]"
     makeProjectSwift(targetString: targetString)
     makeProjectScaffold(targetString: targetString)
+}
+
+func tab(_ count: Int) -> String {
+    var tabString = ""
+    for _ in 0..<count {
+        tabString += "\t\t"
+    }
+    return tabString
 }
 
 func registerModulePaths() {
@@ -93,15 +114,14 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 import DependencyPlugin
 
-let project = Project.makeModule(
+let project = Project.module(
     name: ModulePaths.\(layer.rawValue).\(moduleName).rawValue,
-    product: .staticFramework,
     targets: \(targetString)
 )
 
 """
     writeContentInFile(
-        path: currentPath + "Projects/\(layer.rawValue)/\(moduleName)/Project.swift", 
+        path: currentPath + "Projects/\(layer.rawValue)/\(moduleName)/Project.swift",
         content: projectSwift
     )
 }
@@ -112,14 +132,14 @@ func makeProjectDirectory() {
 
 func makeProjectScaffold(targetString: String) {
     _ = try? bash.run(
-        commandName: "tuist", 
+        commandName: "tuist",
         arguments: ["scaffold", "Module", "--name", "\(moduleName)", "--layer", "\(layer.rawValue)", "--target", "\(targetString)"]
     )
 }
 
 func makeScaffold(target: MicroTargetType) {
     _ = try? bash.run(
-        commandName: "tuist", 
+        commandName: "tuist",
         arguments: ["scaffold", "\(target.rawValue)", "--name", "\(moduleName)", "--layer", "\(layer.rawValue)"]
     )
 }
@@ -139,7 +159,7 @@ func updateFileContent(
     guard let readHandle = try? FileHandle(forReadingFrom: fileURL) else {
         fatalError("❌ Failed to find \(filePath)")
     }
-    guard let readData = try? readHandle.readToEnd() else { 
+    guard let readData = try? readHandle.readToEnd() else {
         fatalError("❌ Failed to find \(filePath)")
     }
     try? readHandle.close()
@@ -155,20 +175,13 @@ func updateFileContent(
     try? writeHandle.close()
 }
 
-func handleSIGINT(_ signal: Int32) -> Void {
-    exit(0)
-}
-
-
 // MARK: - Starting point
-
-signal(SIGINT, handleSIGINT)
 
 print("Enter layer name\n(Feature | Domain | Core | Shared | UserInterface)", terminator: " : ")
 let layerInput = readLine()
-guard 
-    let layerInput, 
-    !layerInput.isEmpty ,
+guard
+    let layerInput,
+    !layerInput.isEmpty,
     let layerUnwrapping = LayerType(rawValue: layerInput)
 else {
     print("Layer is empty or invalid")
@@ -202,17 +215,15 @@ print("This module has a 'Demo' Target? (y\\n, default = n)", terminator: " : ")
 let hasDemo = readLine()?.lowercased() == "y"
 
 print("")
-print("""
-------------------------------------------------------------------------------------------------------------------------
-Layer: \(layer.rawValue)
-Module name: \(moduleName)
-interface: \(hasInterface), testing: \(hasTesting), unitTests: \(hasUnitTests), uiTests: \(hasUITests), demo: \(hasDemo)
-------------------------------------------------------------------------------------------------------------------------
-""")
-print("🔄 Module is creating ...")
 
 registerModuleDependency()
 
+print("")
+print("------------------------------------------------------------------------------------------------------------------------")
+print("Layer: \(layer.rawValue)")
+print("Module name: \(moduleName)")
+print("interface: \(hasInterface), testing: \(hasTesting), unitTests: \(hasUnitTests), uiTests: \(hasUITests), demo: \(hasDemo)")
+print("------------------------------------------------------------------------------------------------------------------------")
 print("✅ Module is created successfully!")
 
 // MARK: - Bash
@@ -230,7 +241,7 @@ struct Bash: CommandExecuting {
     }
 
     private func resolve(_ command: String) throws -> String {
-        guard var bashCommand = try? run("/bin/bash" , with: ["-l", "-c", "which \(command)"]) else {
+        guard var bashCommand = try? run("/bin/bash", with: ["-l", "-c", "which \(command)"]) else {
             throw BashError.commandNotFound(name: command)
         }
         bashCommand = bashCommand.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
@@ -249,4 +260,3 @@ struct Bash: CommandExecuting {
         return output
     }
 }
-
