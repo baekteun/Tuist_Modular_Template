@@ -5,7 +5,7 @@ import DependencyPlugin
 import EnvironmentPlugin
 import Foundation
 
-let configurations: [Configuration] = env.isCI ?
+let configurations: [Configuration] = generateEnvironment == .ci ?
 [
   .debug(name: .dev),
   .debug(name: .stage),
@@ -22,7 +22,7 @@ let settings: Settings =
               configurations: configurations,
               defaultSettings: .recommended)
 
-let scripts: [TargetScript] = env.isCI ? [] : [.swiftLint]
+let scripts: [TargetScript] = generateEnvironment.scripts
 
 let targets: [Target] = [
     .init(
