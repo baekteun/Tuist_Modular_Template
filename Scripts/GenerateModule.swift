@@ -57,7 +57,7 @@ func registerModuleDependency() {
     }
     if hasUITests {
         makeScaffold(target: .uiTest)
-        #warning("ui test 타겟 설정 로직 추가")
+        // TODO: - ui test 타겟 설정 로직 추가
     }
     if hasDemo {
         makeScaffold(target: .demo)
