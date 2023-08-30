@@ -10,7 +10,7 @@ let project = Project.module(
             .shared(target: .GlobalThirdPartyLibrary)
         ]),
         .tests(module: .feature(.BaseFeature), dependencies: [
-            .feature(target: .BaseFeature, type: .interface)
+            .feature(target: .BaseFeature)
         ])
     ]
 )
