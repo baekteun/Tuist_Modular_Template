@@ -23,11 +23,11 @@ extension Scheme {
         return Scheme(
             name: name,
             shared: true,
-            buildAction: .buildAction(targets: ["\(name)DemoApp"]),
+            buildAction: .buildAction(targets: ["\(name)Demo"]),
             testAction: .targets(
                 ["\(name)Tests"],
                 configuration: target,
-                options: .options(coverage: true, codeCoverageTargets: ["\(name)DemoApp"])
+                options: .options(coverage: true, codeCoverageTargets: ["\(name)Demo"])
             ),
             runAction: .runAction(configuration: target),
             archiveAction: .archiveAction(configuration: target),
