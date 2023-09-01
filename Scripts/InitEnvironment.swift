@@ -21,6 +21,7 @@ func writeCodeInFile(filePath: String, codes: String) {
 
 func envString(projectName: String, organizationName: String) -> String {
     return """
+import Foundation
 import ProjectDescription
 
 public struct ProjectEnvironment {
