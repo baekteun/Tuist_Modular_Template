@@ -14,7 +14,7 @@ public struct TargetSpec: Configurable {
     public var resources: ResourceFileElements?
     public var copyFiles: [CopyFilesAction]?
     public var headers: Headers?
-    public var entitlements: Path?
+    public var entitlements: Entitlements?
     public var scripts: [TargetScript]
     public var dependencies: [TargetDependency]
     public var settings: Settings?
@@ -36,7 +36,7 @@ public struct TargetSpec: Configurable {
         resources: ResourceFileElements? = nil,
         copyFiles: [CopyFilesAction]? = nil,
         headers: Headers? = nil,
-        entitlements: Path? = nil,
+        entitlements: Entitlements? = nil,
         scripts: [TargetScript] = generateEnvironment.scripts,
         dependencies: [TargetDependency] = [],
         settings: Settings? = nil,
