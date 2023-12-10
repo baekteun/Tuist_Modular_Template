@@ -4,54 +4,58 @@ import ProjectDescription
 
 public struct TargetSpec: Configurable {
     public var name: String
-    public var platform: Platform
+    public var destinations: Destinations
     public var product: Product
     public var productName: String?
     public var bundleId: String?
-    public var deploymentTarget: DeploymentTarget?
+    public var deploymentTargets: DeploymentTargets?
     public var infoPlist: InfoPlist?
     public var sources: SourceFilesList?
     public var resources: ResourceFileElements?
     public var copyFiles: [CopyFilesAction]?
     public var headers: Headers?
-    public var entitlements: Path?
+    public var entitlements: Entitlements?
     public var scripts: [TargetScript]
     public var dependencies: [TargetDependency]
     public var settings: Settings?
     public var coreDataModels: [CoreDataModel]
-    public var environment: [String : String]
+    public var environmentVariables: [String: EnvironmentVariable]
     public var launchArguments: [LaunchArgument]
     public var additionalFiles: [FileElement]
     public var buildRules: [BuildRule]
+    public var mergedBinaryType: MergedBinaryType
+    public var mergeable: Bool
 
     public init(
         name: String = "",
-        platform: Platform = env.platform,
+        destinations: Destinations = env.destinations,
         product: Product = .staticLibrary,
         productName: String? = nil,
         bundleId: String? = nil,
-        deploymentTarget: DeploymentTarget? = env.deploymentTarget,
+        deploymentTargets: DeploymentTargets? = env.deploymentTargets,
         infoPlist: InfoPlist = .default,
         sources: SourceFilesList? = .sources,
         resources: ResourceFileElements? = nil,
         copyFiles: [CopyFilesAction]? = nil,
         headers: Headers? = nil,
-        entitlements: Path? = nil,
+        entitlements: Entitlements? = nil,
         scripts: [TargetScript] = generateEnvironment.scripts,
         dependencies: [TargetDependency] = [],
         settings: Settings? = nil,
         coreDataModels: [CoreDataModel] = [],
-        environment: [String: String] = [:],
+        environmentVariables: [String: EnvironmentVariable] = [:],
         launchArguments: [LaunchArgument] = [],
         additionalFiles: [FileElement] = [],
-        buildRules: [BuildRule] = []
+        buildRules: [BuildRule] = [],
+        mergedBinaryType: MergedBinaryType = .disabled,
+        mergeable: Bool = false
     ) {
         self.name = name
-        self.platform = platform
+        self.destinations = destinations
         self.product = product
         self.productName = productName
         self.bundleId = bundleId
-        self.deploymentTarget = deploymentTarget
+        self.deploymentTargets = deploymentTargets
         self.infoPlist = infoPlist
         self.sources = sources
         self.resources = resources
@@ -62,10 +66,12 @@ public struct TargetSpec: Configurable {
         self.dependencies = dependencies
         self.settings = settings
         self.coreDataModels = coreDataModels
-        self.environment = environment
+        self.environmentVariables = environmentVariables
         self.launchArguments = launchArguments
         self.additionalFiles = additionalFiles
         self.buildRules = buildRules
+        self.mergedBinaryType = mergedBinaryType
+        self.mergeable = mergeable
     }
 
     func toTarget() -> Target {
@@ -75,11 +81,11 @@ public struct TargetSpec: Configurable {
     func toTarget(with name: String, product: Product? = nil) -> Target {
         Target(
             name: name,
-            platform: platform,
+            destinations: destinations,
             product: product ?? self.product,
             productName: productName,
             bundleId: bundleId ?? "\(env.organizationName).\(name)",
-            deploymentTarget: deploymentTarget,
+            deploymentTargets: deploymentTargets,
             infoPlist: infoPlist,
             sources: sources,
             resources: resources,
@@ -95,10 +101,12 @@ public struct TargetSpec: Configurable {
                 defaultSettings: .recommended
             ),
             coreDataModels: coreDataModels,
-            environment: environment,
+            environmentVariables: environmentVariables,
             launchArguments: launchArguments,
             additionalFiles: additionalFiles,
-            buildRules: buildRules
+            buildRules: buildRules,
+            mergedBinaryType: mergedBinaryType,
+            mergeable: mergeable
         )
     }
 }

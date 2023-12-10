@@ -18,10 +18,10 @@ let scripts: [TargetScript] = generateEnvironment.scripts
 let targets: [Target] = [
     .init(
         name: env.name,
-        platform: env.platform,
+        destinations: env.destinations,
         product: .app,
         bundleId: "\(env.organizationName).\(env.name)",
-        deploymentTarget: env.deploymentTarget,
+        deploymentTargets: env.deploymentTargets,
         infoPlist: .file(path: "Support/Info.plist"),
         sources: ["Sources/**"],
         resources: ["Resources/**"],

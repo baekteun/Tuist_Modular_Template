@@ -15,7 +15,7 @@ public enum MicroFeatureTarget {
 public extension Project {
     static func makeModule(
         name: String,
-        platform: Platform = env.platform,
+        destinations: Destinations = env.destinations,
         product: Product,
         targets: Set<MicroFeatureTarget>,
         packages: [Package] = [],
@@ -29,7 +29,7 @@ public extension Project {
         sources: SourceFilesList = .sources,
         resources: ResourceFileElements? = nil,
         settings: SettingsDictionary = [:],
-        additionalPlistRows: [String: ProjectDescription.InfoPlist.Value] = [:],
+        additionalPlistRows: [String: ProjectDescription.Plist.Value] = [:],
         additionalFiles: [FileElement] = [],
         configurations: [Configuration] = []
     ) -> Project {
@@ -64,10 +64,10 @@ public extension Project {
             allTargets.append(
                 Target(
                     name: "\(name)Interface",
-                    platform: platform,
+                    destinations: destinations,
                     product: .framework,
                     bundleId: "\(env.organizationName).\(name)Interface",
-                    deploymentTarget: env.deploymentTarget,
+                    deploymentTargets: env.deploymentTargets,
                     infoPlist: .default,
                     sources: .interface,
                     scripts: scripts,
@@ -81,10 +81,10 @@ public extension Project {
         allTargets.append(
             Target(
                 name: name,
-                platform: platform,
+                destinations: destinations,
                 product: product,
                 bundleId: "\(env.organizationName).\(name)",
-                deploymentTarget: env.deploymentTarget,
+                deploymentTargets: env.deploymentTargets,
                 infoPlist: .extendingDefault(with: additionalPlistRows),
                 sources: sources,
                 resources: resources,
@@ -98,10 +98,10 @@ public extension Project {
             allTargets.append(
                 Target(
                     name: "\(name)Testing",
-                    platform: platform,
+                    destinations: destinations,
                     product: .framework,
                     bundleId: "\(env.organizationName).\(name)Testing",
-                    deploymentTarget: env.deploymentTarget,
+                    deploymentTargets: env.deploymentTargets,
                     infoPlist: .default,
                     sources: .testing,
                     scripts: scripts,
@@ -126,10 +126,10 @@ public extension Project {
             allTargets.append(
                 Target(
                     name: "\(name)Tests",
-                    platform: platform,
+                    destinations: destinations,
                     product: .unitTests,
                     bundleId: "\(env.organizationName).\(name)Tests",
-                    deploymentTarget: env.deploymentTarget,
+                    deploymentTargets: env.deploymentTargets,
                     infoPlist: .default,
                     sources: .unitTests,
                     scripts: scripts,
@@ -143,10 +143,10 @@ public extension Project {
             allTargets.append(
                 Target(
                     name: "\(name)UITests",
-                    platform: platform,
+                    destinations: destinations,
                     product: .uiTests,
                     bundleId: "\(env.organizationName).\(name)UITests",
-                    deploymentTarget: env.deploymentTarget,
+                    deploymentTargets: env.deploymentTargets,
                     infoPlist: .default,
                     scripts: scripts,
                     dependencies: testTargetDependencies + uiTestDependencies
@@ -164,10 +164,10 @@ public extension Project {
             allTargets.append(
                 Target(
                     name: "\(name)DemoApp",
-                    platform: platform,
+                    destinations: destinations,
                     product: .app,
                     bundleId: "\(env.organizationName).\(name)DemoApp",
-                    deploymentTarget: env.deploymentTarget,
+                    deploymentTargets: env.deploymentTargets,
                     infoPlist: .extendingDefault(with: [
                         "UIMainStoryboardFile": "",
                         "UILaunchStoryboardName": "LaunchScreen",
