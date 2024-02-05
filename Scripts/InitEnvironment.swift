@@ -27,16 +27,16 @@ import ProjectDescription
 public struct ProjectEnvironment {
     public let name: String
     public let organizationName: String
-    public let deploymentTarget: DeploymentTarget
-    public let platform: Platform
+    public let destinations: Destinations
+    public let deploymentTargets: DeploymentTargets
     public let baseSetting: SettingsDictionary
 }
 
 public let env = ProjectEnvironment(
     name: "\(projectName)",
     organizationName: "\(organizationName)",
-    deploymentTarget: .iOS(targetVersion: "16.0", devices: [.iphone, .ipad]),
-    platform: .iOS,
+    destinations: [.iPhone, .iPad],
+    deploymentTargets: .iOS("16.0"),
     baseSetting: [:]
 )
 """
