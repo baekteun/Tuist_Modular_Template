@@ -175,6 +175,14 @@ func updateFileContent(
     try? writeHandle.close()
 }
 
+func checkInputOrTerminate(_ input: String?) -> String {
+    guard let input, !input.isEmpty else {
+        print("Input is empty or null.")
+        exit(1)
+    }
+    return input
+}
+
 // MARK: - Starting point
 
 print("Enter layer name\n(Feature | Domain | Core | Shared | UserInterface)", terminator: " : ")
@@ -200,19 +208,24 @@ var moduleName = moduleNameUnwrapping
 print("Module name: \(moduleName)\n")
 
 print("This module has a 'Interface' Target? (y\\n, default = n)", terminator: " : ")
-let hasInterface = readLine()?.lowercased() == "y"
+let interfaceInput = checkInputOrTerminate(readLine())
+let hasInterface = interfaceInput.lowercased() == "y"
 
 print("This module has a 'Testing' Target? (y\\n, default = n)", terminator: " : ")
-let hasTesting = readLine()?.lowercased() == "y"
+let testingInput = checkInputOrTerminate(readLine())
+let hasTesting = testingInput.lowercased() == "y"
 
 print("This module has a 'UnitTests' Target? (y\\n, default = n)", terminator: " : ")
-let hasUnitTests = readLine()?.lowercased() == "y"
+let unitTestsInput = checkInputOrTerminate(readLine())
+let hasUnitTests = unitTestsInput.lowercased() == "y"
 
 print("This module has a 'UITests' Target? (y\\n, default = n)", terminator: " : ")
-let hasUITests = readLine()?.lowercased() == "y"
+let uiTestsInput = checkInputOrTerminate(readLine())
+let hasUITests = uiTestsInput.lowercased() == "y"
 
 print("This module has a 'Demo' Target? (y\\n, default = n)", terminator: " : ")
-let hasDemo = readLine()?.lowercased() == "y"
+let demoInput = checkInputOrTerminate(readLine())
+let hasDemo = demoInput.lowercased() == "y"
 
 print("")
 
