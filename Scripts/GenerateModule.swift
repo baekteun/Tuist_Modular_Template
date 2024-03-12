@@ -209,14 +209,6 @@ func makeModuleInfo() -> ModuleInfo {
     print("This module has a 'Demo' Target? (y\\n, default = n)", terminator: " : ")
     let hasDemo = readLine()?.lowercased() == "y"
     
-    print("")
-    print("------------------------------------------------------------------------------------------------------------------------")
-    print("Is this the correct module information you are generating? (y\\n, default = y)")
-    print("Layer: \(layer.rawValue)")
-    print("Module name: \(moduleName)")
-    print("interface: \(hasInterface), testing: \(hasTesting), unitTests: \(hasUnitTests), uiTests: \(hasUITests), demo: \(hasDemo)")
-    print("------------------------------------------------------------------------------------------------------------------------")
-    
     return ModuleInfo(
         moduleName: moduleName,
         hasInterface: hasInterface,
@@ -228,6 +220,14 @@ func makeModuleInfo() -> ModuleInfo {
 }
 
 func checkModuleInfo() -> Bool {
+    print("")
+    print("------------------------------------------------------------------------------------------------------------------------")
+    print("Is this the correct module information you are generating? (y\\n, default = y)")
+    print("Layer: \(layer.rawValue)")
+    print("Module name: \(moduleName)")
+    print("interface: \(hasInterface), testing: \(hasTesting), unitTests: \(hasUnitTests), uiTests: \(hasUITests), demo: \(hasDemo)")
+    print("------------------------------------------------------------------------------------------------------------------------")
+    
     guard var checkInput = readLine() else {
         exit(1)
     }
