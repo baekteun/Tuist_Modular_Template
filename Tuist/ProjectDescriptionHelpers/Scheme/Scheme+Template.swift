@@ -1,9 +1,8 @@
 import ProjectDescription
-import ProjectDescriptionHelpers
 
 extension Scheme {
     static func makeScheme(target: ConfigurationName, name: String) -> Scheme {
-        return Scheme(
+        return Scheme.scheme(
             name: name,
             shared: true,
             buildAction: .buildAction(targets: ["\(name)"]),
@@ -20,7 +19,7 @@ extension Scheme {
     }
 
     static func makeDemoScheme(target: ConfigurationName, name: String) -> Scheme {
-        return Scheme(
+        return Scheme.scheme(
             name: name,
             shared: true,
             buildAction: .buildAction(targets: ["\(name)Demo"]),
