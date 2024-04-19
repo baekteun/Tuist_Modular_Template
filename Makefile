@@ -1,13 +1,13 @@
 generate:
-	tuist fetch
+	tuist insatll
 	tuist generate
 
 ci_generate:
-	tuist fetch
+	tuist install
 	TUIST_ENV=CI tuist generate
 
 cd_generate:
-	tuist fetch
+	tuist install
 	TUIST_ENV=CD tuist generate
 
 clean:
