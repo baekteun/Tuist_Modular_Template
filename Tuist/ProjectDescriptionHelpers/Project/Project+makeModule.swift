@@ -62,7 +62,7 @@ public extension Project {
         if targets.contains(.interface) {
             dependencies.append(.target(name: "\(name)Interface"))
             allTargets.append(
-                Target(
+                Target.target(
                     name: "\(name)Interface",
                     destinations: destinations,
                     product: .framework,
@@ -79,7 +79,7 @@ public extension Project {
 
         // MARK: - Sources
         allTargets.append(
-            Target(
+            Target.target(
                 name: name,
                 destinations: destinations,
                 product: product,
@@ -96,7 +96,7 @@ public extension Project {
         // MARK: - Testing
         if targets.contains(.testing) && targets.contains(.interface) {
             allTargets.append(
-                Target(
+                Target.target(
                     name: "\(name)Testing",
                     destinations: destinations,
                     product: .framework,
@@ -124,7 +124,7 @@ public extension Project {
         // MARK: - Unit Test
         if targets.contains(.unitTest) {
             allTargets.append(
-                Target(
+                Target.target(
                     name: "\(name)Tests",
                     destinations: destinations,
                     product: .unitTests,
@@ -141,7 +141,7 @@ public extension Project {
         // MARK: - UI Test
         if targets.contains(.uiTest) {
             allTargets.append(
-                Target(
+                Target.target(
                     name: "\(name)UITests",
                     destinations: destinations,
                     product: .uiTests,
@@ -162,7 +162,7 @@ public extension Project {
                 demoDependencies.append(.target(name: "\(name)Testing"))
             }
             allTargets.append(
-                Target(
+                Target.target(
                     name: "\(name)DemoApp",
                     destinations: destinations,
                     product: .app,
