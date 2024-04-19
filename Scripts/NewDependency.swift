@@ -35,9 +35,9 @@ signal(SIGINT, handleSIGINT)
  }
 
  func registerDependenciesSwift(url: String, version: String) {
-     let filePath = currentPath + "Tuist/Dependencies.swift"
-     let findingString = "    swiftPackageManager: SwiftPackageManagerDependencies(\n        [\n"
-     let inserting = "            .remote(url: \"\(url)\", requirement: .exact(\"\(version)\")),\n"
+     let filePath = currentPath + "Package.swift"
+     let findingString = "    dependencies: [\n"
+     let inserting = "        .package(url: \"\(url)\", from: \"\(version)\"),\n"
      updateFileContent(filePath: filePath, finding: findingString, inserting: inserting)
  }
 
