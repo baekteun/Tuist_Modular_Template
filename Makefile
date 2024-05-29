@@ -1,5 +1,5 @@
 generate:
-	tuist insatll
+	tuist install
 	tuist generate
 
 ci_generate:
