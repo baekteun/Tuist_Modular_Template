@@ -96,7 +96,7 @@ public struct TargetSpec: Configurable {
             dependencies: dependencies,
             settings: settings ?? .settings(
                 base: env.baseSetting
-                    .merging((product ?? self.product) == .framework ? .allLoadLDFlages : .ldFlages),
+                    .merging((product ?? self.product) == .framework ? .allLoadLDFlags : .ldFlags),
                 configurations: .default,
                 defaultSettings: .recommended
             ),
