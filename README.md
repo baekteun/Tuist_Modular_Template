@@ -25,13 +25,13 @@ Features - Services - Core - UserInterface - Shared
 
 을 생각하여 레이어를 분리하였습니다.
 
-## Micro Feature
-각 모듈은 Micro Feature 구조를 기반으로 설계됩니다.
+## The Modular Architecture (TMA)
+각 모듈은 The Modular 구조를 기반으로 설계됩니다.
 확장 가능하고 커지는 프로젝트를 기능별로 수평 확장이 가능하도록 Micro Service에서 영감을 얻은 아키텍쳐입니다.
 
 <img src="https://user-images.githubusercontent.com/74440939/210211725-5ac7c9fe-bf25-4707-9775-4f46f1c0c522.png" width="200">
 
-##### https://docs.tuist.io/building-at-scale/microfeatures/#product
+##### https://docs.tuist.dev/ko/guides/develop/projects/tma-architecture#the-modular-architecture-tma
 
 ## 프로젝트 세팅
 프로젝트 루트에서 `make init` 를 실행하여, 프로젝트 이름과 organization 이름을 입력하여 기본 설정을 할 수 있습니다.
@@ -39,7 +39,7 @@ Features - Services - Core - UserInterface - Shared
 프로젝트 루트에서 `make signing`를 실행하면 프로젝트 Team Signing을 할 수 있습니다.
 
 ## 모듈 생성
-프로젝트 루트에서 `make module`를 실행하면 모듈 레이어, 이름, Micro Feature 종류를 선택하여 새 모듈을 생성합니다.
+프로젝트 루트에서 `make module`를 실행하면 모듈 레이어, 이름, 종류를 선택하여 새 모듈을 생성합니다.
 
 ## Makefile
 프로젝트 루트에서 실행할 수 있는 명령어입니다.
